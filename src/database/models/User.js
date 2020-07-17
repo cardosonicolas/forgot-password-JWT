@@ -38,6 +38,11 @@ User.init(
         this.setDataValue("password", hash);
       },
     },
+
+    token: {
+      type: DataTypes.STRING,
+      required: false,
+    },
   },
   {
     sequelize,
