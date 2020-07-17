@@ -1,52 +1,49 @@
+const emailController = {};
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const User = require("../database/models/User");
-import {
+const {
   transporter,
   getPasswordResetURL,
   resetPasswordTemplate,
-} from "../modules/email";
+} = require("../modules/email");
 
-/* `secret` es una passwordHash concatenado con el usuario
-createdAt value, por lo que si alguien malicioso obtiene el
+/* "secret" es una passwordHash concatenado con el createdAt, por lo que si alguien malicioso obtiene el
 token todavía necesitan una marca de tiempo para hackearlo:*/
-export const usePasswordHashToMakeToken = ({ password, id, createdAt }) => {
-  // highlight-start
+const usePasswordHashToMakeToken = ({ password, id, createdAt }) => {
   const secret = `${password}-${createdAt}`;
   const token = jwt.sign({ id }, secret, {
-    expiresIn: 300, // 1 hour
+    expiresIn: 3600, // 1 hora
   });
-  // highlight-end
   return token;
 };
 
 //Enviando el correo electrónico
-export const sendPasswordResetEmail = async (req, res) => {
-  const user = {};
+emailController.sendPasswordResetEmail = async (req, res) => {
+  let user = {};
   const { email } = req.body;
-  try {
-    user = await User.findOne({ where: { email: email } });
-  } catch (err) {
-    res.status(404).json("No hay un usuario con este email");
-  }
 
-  const token = usePasswordHashToMakeToken(user);
-  const url = getPasswordResetURL(user, token);
-  const emailTemplate = resetPasswordTemplate(user, url);
+  User.findOne({ where: { email: email } })
+    .then((user) => {
+      const token = usePasswordHashToMakeToken(user);
+      const url = getPasswordResetURL(user, token);
+      const emailTemplate = resetPasswordTemplate(user, url);
 
-  export const sendEmail = () => {
-    transporter.sendMail(emailTemplate, (err, info) => {
-      if (err) {
-        res.status(500).json("Error al enviar el email");
-      }
-      console.log(`Email enviado`, info.response);
+      transporter.sendMail(emailTemplate, (err, info) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json("Error al enviar el email");
+        } else {
+          console.log(`Email enviado`);
+        }
+      });
+    })
+    .catch(() => {
+      res.status(404).json("No hay un usuario con este email");
     });
-  };
-  sendEmail();
 };
 
 //Actualización de la contraseña del usuario
-export const receiveNewPassword = async (req, res) => {
+emailController.receiveNewPassword = async (req, res) => {
   const { id, token } = req.params;
   const { password } = req.body;
 
@@ -64,3 +61,5 @@ export const receiveNewPassword = async (req, res) => {
       res.status(404).json("Usuario no valido");
     });
 };
+
+module.exports = emailController;

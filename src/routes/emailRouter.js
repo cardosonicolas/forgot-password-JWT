@@ -4,6 +4,6 @@ const email = require("../controllers/EmailController");
 
 router.post("/user/:email", email.sendPasswordResetEmail);
 
-router.post("/receive_new_password/:userId/:token", email.receiveNewPassword);
+router.post("/receive_new_password/:id/:token", email.receiveNewPassword);
 
-module.exports = email;
+module.exports = router;

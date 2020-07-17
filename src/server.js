@@ -6,7 +6,8 @@ const User = require("./database/models/User");
 require("dotenv").config();
 
 // importing router
-const userRouter = require("./routes/user");
+const userRouter = require("./routes/userRouter");
+const emailRouter = require("./routes/emailRouter");
 
 // Settings
 app.set("port", process.env.PORT || 3000);
@@ -20,16 +21,12 @@ app.use(express.json());
 
 // routes
 app.use("/", userRouter);
+app.use("/", emailRouter);
 
 app.listen(app.get("port"), () => {
   sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then(() => {
-      User.create({
-        name: process.env.ACCOUNT_NAME,
-        email: process.env.EMAIL_LOGIN,
-        password: process.env.ACCOUNT_PASSWORD,
-      });
       console.log("Conexión a DB establecida");
     })
     .catch((err) => {

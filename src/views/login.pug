@@ -1,7 +1,6 @@
 extends templates/template 
 block append config
   - actual_page = "Iniciar sesión";
-block header
 block main
   div.flex-container.lrBorderRadius
     div.log
@@ -15,4 +14,4 @@ block main
           button(type="submit", class="lrBtn") Iniciar
       div.lrForgot
         p Forgot 
-          a(href="") Password?
+          a(href="/forgot") Password?
