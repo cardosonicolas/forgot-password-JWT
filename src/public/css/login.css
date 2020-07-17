@@ -1,0 +1,111 @@
+:root {
+  --white: hsl(0, 0%, 100%);
+  --pink-40: hsl(354, 71%, 40%);
+  --pink-50: hsl(354, 71%, 50%);
+  --pink-60: hsl(354, 71%, 60%);
+  --pink-70: hsl(354, 71%, 70%);
+  --pink-80: hsl(354, 71%, 80%);
+  --pink-90: hsl(354, 71%, 90%);
+}
+
+.lrBorderRadius {
+  border-radius: 10px;
+}
+
+.log {
+  height: 400px;
+  width: 330px;
+  margin: 0.5em;
+  border-radius: 10px;
+  border: 1px solid hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.resg {
+  height: 500px;
+  width: 330px;
+  margin: 0.5em;
+  border-radius: 10px;
+  border: 1px solid hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.lrHead {
+  color: var(--white);
+  background-color: var(--pink-50);
+  border-radius: 10px 10px 0 0;
+}
+
+.lrBody {
+  height: 75%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.resgBody {
+  height: 90%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.lrInput {
+  height: 50px;
+  width: 90%;
+  margin-top: 1em;
+  padding: 0 25px 0 25px;
+  font-size: 20px;
+  outline: none;
+  border: 1px solid var(--pink-90);
+}
+
+.lrInput:focus {
+  box-shadow: 0 0 5px var(--pink-50);
+  border: 1px solid var(--pink-50);
+}
+.lrInput::placeholder {
+  color: black;
+}
+
+.lrBtn {
+  height: 50px;
+  width: 90%;
+  background-color: var(--pink-50);
+  border: none;
+  color: var(--white);
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+.lrForgot {
+  font-size: 15px;
+  color: var(--pink-80);
+}
+
+.lrForgot a {
+  color: var(--pink-50);
+}
+
+@media (min-width: 992px) {
+  .log {
+    height: 400px;
+    width: 500px;
+  }
+
+  .resg {
+    height: 500px;
+    width: 500px;
+  }
+
+  .lrBtn:hover {
+    background-color: var(--pink-40);
+  }
+
+  .lrForgot a:hover {
+    text-decoration: underline;
+  }
+}

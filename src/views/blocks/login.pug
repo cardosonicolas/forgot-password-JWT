@@ -1,0 +1,18 @@
+extends templates/template 
+block append config
+  - actual_page = "Iniciar sesión";
+block header
+block main
+  div.flex-container.lrBorderRadius
+    div.log
+      div.lrHead
+        h1 Iniciar sesion
+      form(action="/login", method="post", class="lrBody")
+        div
+          input(type="email", name="email", placeholder= "Ingresa tu email", class="lrInput" required)
+          input(type="password", name="password", placeholder= "Ingresa tu password",class="lrInput", required)
+        div
+          button(type="submit", class="lrBtn") Iniciar
+      div.lrForgot
+        p Forgot 
+          a(href="") Password?
